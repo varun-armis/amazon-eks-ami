@@ -28,6 +28,7 @@
     "kubernetes_build_date": null,
     "kubernetes_version": null,
     "launch_block_device_mappings_volume_size": null,
+    "launch_block_device_mappings": null,
     "pause_container_version": null,
     "pull_cni_from_github": null,
     "remote_folder": null,
@@ -65,14 +66,8 @@
         "most_recent": true
       },
       "instance_type": "{{user `instance_type`}}",
-      "launch_block_device_mappings": [
-        {
-          "device_name": "/dev/xvda",
-          "volume_type": "{{user `volume_type`}}",
-          "volume_size": "{{user `launch_block_device_mappings_volume_size`}}",
-          "delete_on_termination": true
-        }
-      ],
+      "iam_instance_profile": "{{user `iam_instance_profile`}}",
+      "launch_block_device_mappings": "{{user `launch_block_device_mappings`}}",
       "ami_block_device_mappings": [
         {
           "device_name": "/dev/xvda",
