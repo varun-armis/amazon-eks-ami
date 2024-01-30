@@ -22,6 +22,7 @@
     "docker_version": null,
     "encrypted": null,
     "enable_fips": null,
+    "iam_instance_profile": null,
     "instance_type": null,
     "kernel_version": null,
     "kms_key_id": null,
