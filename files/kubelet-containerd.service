@@ -6,7 +6,7 @@ Requires=containerd.service sandbox-image.service
 
 [Service]
 Slice=runtime.slice
-ExecStartPre=/sbin/iptables -P FORWARD ACCEPT -w 5
+ExecStartPre=/sbin/iptables -P FORWARD ACCEPT -w 5 ; /sbin/iptables -I INPUT -p tcp -m tcp --dport 10250 -j ACCEPT
 ExecStart=/usr/bin/kubelet \
     --config /etc/kubernetes/kubelet/kubelet-config.json \
     --kubeconfig /var/lib/kubelet/kubeconfig \
