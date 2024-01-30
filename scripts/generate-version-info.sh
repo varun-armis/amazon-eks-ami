@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# open issue:
+#   https://github.com/awslabs/amazon-eks-ami/pull/1513
+#   https://github.com/awslabs/amazon-eks-ami/pull/1556
+
 # generates a JSON file containing version information for the software in this AMI
 
 set -o errexit
@@ -16,14 +20,14 @@ OUTPUT_FILE="$1"
 sudo rpm --query --all --queryformat '\{"%{NAME}": "%{VERSION}-%{RELEASE}"\}\n' | jq --slurp --sort-keys 'add | {packages:(.)}' > "$OUTPUT_FILE"
 
 # binaries
-KUBELET_VERSION=$(kubelet --version | awk '{print $2}')
+KUBELET_VERSION=$(sudo kubelet --version | awk '{print $2}')
 if [ "$?" != 0 ]; then
   echo "unable to get kubelet version"
   exit 1
 fi
 echo $(jq ".binaries.kubelet = \"$KUBELET_VERSION\"" $OUTPUT_FILE) > $OUTPUT_FILE
 
-CLI_VERSION=$(aws --version | awk '{print $1}' | cut -d '/' -f 2)
+CLI_VERSION=$(sudo /bin/aws --version | awk '{print $1}' | cut -d '/' -f 2)
 if [ "$?" != 0 ]; then
   echo "unable to get aws cli version"
   exit 1
