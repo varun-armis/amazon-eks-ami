@@ -304,7 +304,7 @@ for binary in ${BINARIES[*]}; do
     sudo wget $S3_URL_BASE/$binary.sha256
   fi
   sudo sha256sum -c $binary.sha256
-  sudo chmod +x $binary
+  sudo chmod 755 $binary
   sudo mv $binary /usr/bin/
 done
 
